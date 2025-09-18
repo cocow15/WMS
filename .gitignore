@@ -1,0 +1,51 @@
+# ---- Build artifacts / IDE ----
+bin/
+obj/
+out/
+*.user
+*.suo
+*.userprefs
+.vs/
+*.ncrunch*
+_ReSharper*/
+*.resharper
+*.DotSettings.user
+
+# ---- Logs / temp ----
+*.log
+logs/
+TestResult*/
+*.coverage
+*.coveragexml
+
+# ---- OS cruft ----
+.DS_Store
+Thumbs.db
+
+# ---- Secrets & config lokal ----
+# Hindari publish appsettings lokal/rahasia
+appsettings.Development.json
+appsettings.Local.json
+appsettings.Secrets.json
+appsettings.*.local.json
+appsettings.*.dev.json
+
+# (opsional) kalau mau aman, ignore semua appsettings kecuali Production
+# uncomment baris di bawah jika diinginkan:
+# appsettings*.json
+# !appsettings.json
+# !appsettings.Production.json
+
+# ---- EF Core / tools caches ----
+migrations/obj/
+*.jfm
+
+# ---- K8s/docker compose override (bila ada) ----
+docker-compose.override.yml
+*.override.yaml
+*.secret.yaml
+
+# ---- Postman / docs privat (opsional) ----
+docs/private/
+*.postman_environment.json
+*local.postman_collection.json
