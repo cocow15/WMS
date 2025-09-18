@@ -119,7 +119,7 @@ Service/
 
 ## Database Schema
 
-![ERD](.Service/docs/schema.png)
+![ERD](Service/docs/schema.png)
 Schemas:
 
 - `auth.users` (UserId, Username, Email, PasswordHash, Role, IsActive, timestamps)
@@ -721,10 +721,20 @@ Add **HostList** page to visualize remote data (optional).
 
 > Place images under `public/images/` and link to them:
 
-- ![Login Screenshot](.Client/public/images/login.png)
-- ![Dashboard Screenshot](.Client/public/images/dashboard.png)
-- ![Products Screenshot](.Client/public/images/products.png)
-- ![Brands Screenshot](.Client/public/images/brands.png)
-- ![Categories Screenshot](.Client/public/images/categories.png)
-- ![Host Products Screenshot](.Client/public/images/host-products.png)
+### Login
+![Login Screenshot](Client/public/images/login.png)
 
+### Home Dashboard
+![Dashboard Screenshot](Client/public/images/dashboard.png)
+
+### Products 
+![Products Screenshot](Client/public/images/products.png)
+
+### Brands
+![Brands Screenshot](Client/public/images/brands.png)
+
+### Categories
+![Categories Screenshot](Client/public/images/categories.png)
+
+### Host Products
+![Host Products Screenshot](Client/public/images/host-products.png)
