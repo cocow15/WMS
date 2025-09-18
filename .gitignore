@@ -29,6 +29,7 @@ appsettings.Local.json
 appsettings.Secrets.json
 appsettings.*.local.json
 appsettings.*.dev.json
+appsettings.json
 
 # (opsional) kalau mau aman, ignore semua appsettings kecuali Production
 # uncomment baris di bawah jika diinginkan:
