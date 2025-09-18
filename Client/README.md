@@ -334,12 +334,11 @@ Add **HostList** page to visualize remote data (optional).
 
 ## 17) Screenshots
 
-```md
-> Place images under `public/images/` or `docs/screenshots/` and link to them:
->
-> ![Dashboard Screenshot](./public/images/dashboard.png)
-> ![Products Screenshot](./public/images/products.png)
-> ![Brands Screenshot](./public/images/brands.png)
-> ![Categories Screenshot](./public/images/categories.png)
-> ![Host Products Screenshot](./public/images/host-products.png)
-```
+> Place images under `public/images/` and link to them:
+
+- ![Login Screenshot](public/images/login.png)
+- ![Dashboard Screenshot](public/images/dashboard.png)
+- ![Products Screenshot](public/images/products.png)
+- ![Brands Screenshot](public/images/brands.png)
+- ![Categories Screenshot](public/images/categories.png)
+- ![Host Products Screenshot](public/images/host-products.png)
