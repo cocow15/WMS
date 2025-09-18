@@ -1,19 +1,23 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import api from '../api/axios';
-import { EP } from '../api/endpoints';
-import type { BaseResponse } from '../types/base-response';
-import type { ProductCreateDto, ProductUpdateDto, ProductListRequest, ProductView } from '../types/dto';
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import api from "../api/axios";
+import { EP } from "../api/endpoints";
+import type { BaseResponse } from "../types/base-response";
+import type {
+  ProductCreateDto,
+  ProductUpdateDto,
+  ProductListRequest,
+  ProductView,
+} from "../types/dto";
 
 type PageMeta = { page: number; limit: number; total: number; total_pages: number };
 
+const KEY = ["products"];
+
 export function useProductList(params: ProductListRequest) {
   return useQuery({
-    queryKey: ['products', params], // pastikan params stabil (hindari object baru tiap render)
+    queryKey: [ ...KEY, params ],
     queryFn: async () => {
-      const { data } = await api.post<
-        BaseResponse<ProductView[], PageMeta>
-      >(EP.productsList, params);
-
+      const { data } = await api.post<BaseResponse<ProductView[], PageMeta>>(EP.productsList, params);
       return {
         rows: data.data ?? [],
         total: data.page?.total ?? 0,
@@ -31,7 +35,7 @@ export function useProductCreate() {
       const { data } = await api.post<BaseResponse<{ productId: string }>>(EP.products, payload);
       return data.data;
     },
-    onSuccess: () => qc.invalidateQueries({ queryKey: ['products'] }),
+    onSuccess: () => qc.invalidateQueries({ queryKey: KEY }),
   });
 }
 
@@ -42,13 +46,13 @@ export function useProductUpdate() {
       const { data } = await api.put<BaseResponse>(EP.products, payload);
       return data.data;
     },
-    onSuccess: () => qc.invalidateQueries({ queryKey: ['products'] }),
+    onSuccess: () => qc.invalidateQueries({ queryKey: KEY }),
   });
 }
 
 export function useProductById(id?: string) {
   return useQuery({
-    queryKey: ['product', id],
+    queryKey: ["product", id],
     enabled: !!id,
     queryFn: async () => {
       const { data } = await api.get<BaseResponse<ProductView>>(`${EP.products}/${id}`);
@@ -61,9 +65,9 @@ export function useProductDelete() {
   const qc = useQueryClient();
   return useMutation({
     mutationFn: async (id: string) => {
-      const { data } = await api.delete<BaseResponse>(`${EP.products}/${id}`);
-      return data.data;
+      await api.delete(`${EP.products}/${id}`);
+      return true;
     },
-    onSuccess: () => qc.invalidateQueries({ queryKey: ['products'] }),
+    onSuccess: () => qc.invalidateQueries({ queryKey: KEY }),
   });
 }

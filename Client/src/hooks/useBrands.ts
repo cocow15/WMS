@@ -1,10 +1,11 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import api from '../api/axios';
-import { EP } from '../api/endpoints';
-import type { BaseResponse } from '../types/base-response';
-import type { Brand } from '../types/dto';
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import api from "../api/axios";
+import { EP } from "../api/endpoints";
+import type { BaseResponse } from "../types/base-response";
 
-const KEY = ['brands'];
+export type Brand = { brandId: string; name: string };
+
+const KEY = ["brands"];
 
 export function useBrandList() {
   return useQuery({
@@ -13,6 +14,7 @@ export function useBrandList() {
       const { data } = await api.get<BaseResponse<Brand[]>>(EP.brands);
       return data.data ?? [];
     },
+    placeholderData: (prev) => prev,
   });
 }
 
@@ -20,24 +22,26 @@ export function useBrandCreate() {
   const qc = useQueryClient();
   return useMutation({
     mutationFn: async (payload: { name: string }) => {
-      const { data } = await api.post<BaseResponse<{ brandId: string }>>(EP.brands, payload);
+      const { data } = await api.post<BaseResponse>(EP.brands, payload);
       return data.data;
     },
     onSuccess: () => qc.invalidateQueries({ queryKey: KEY }),
   });
 }
 
+/** UPDATE: PUT /api/brands  (ID di body) */
 export function useBrandUpdate() {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: async (payload: Brand) => {
-      const { data } = await api.put<BaseResponse>(' /api/brands', payload);
+    mutationFn: async (payload: { brandId: string; name: string }) => {
+      const { data } = await api.put<BaseResponse>(EP.brands, payload);
       return data.data;
     },
     onSuccess: () => qc.invalidateQueries({ queryKey: KEY }),
   });
 }
 
+/** DELETE: DELETE /api/brands/{id} */
 export function useBrandDelete() {
   const qc = useQueryClient();
   return useMutation({
