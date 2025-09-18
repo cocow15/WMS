@@ -51,14 +51,14 @@ builder.Services.AddScoped<IHostProductService, HostProductService>();
 builder.Services.AddScoped<IExternalAuthService, ExternalAuthService>();
 
 // Product + decorator cache
-builder.Services.AddScoped<ProductService>();   // concrete
+builder.Services.AddScoped<IProductService, ProductService>();   // concrete
 builder.Services.AddMemoryCache();
-builder.Services.AddScoped<IProductService>(sp =>
-{
-    var inner = sp.GetRequiredService<ProductService>();
-    var cache = sp.GetRequiredService<IMemoryCache>();
-    return new ProductServiceCacheDecorator(inner, cache);
-});
+// builder.Services.AddScoped<IProductService>(sp =>
+// {
+//     var inner = sp.GetRequiredService<ProductService>();
+//     var cache = sp.GetRequiredService<IMemoryCache>();
+//     return new ProductServiceCacheDecorator(inner, cache);
+// });
 
 // ============= MISC =============
 builder.Services.AddAutoMapper(typeof(AppProfile));
